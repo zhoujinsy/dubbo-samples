@@ -16,7 +16,7 @@ jobs:
         with:
           ref: master  
       - name: Fork Sync With Upstream
-        uses: aormsby/Fork-Sync-With-Upstream-action@v2.2
+        uses: aormsby/Fork-Sync-With-Upstream-action@c86999d81e8504c61a7eae1bd12ad04eae3449e5
         with:
           # Upstream repository, e.g. => aormsby/Fork-Sync-With-Upstream-action
           upstream_repository: apache/dubbo-samples
@@ -28,15 +28,4 @@ jobs:
           git_user: "null"
           # Git email credentials for sigining commit (set to "null" for no credential changes)
           git_email: "null"
-      - name: Check for new commits
-        if: always()
-        run: |
-          echo "${{steps.sync.outputs.has_new_commits}}"
-          if [ "${{steps.sync.outputs.has_new_commits}}" == "false" ]; then
-            echo "No new commits to sync."
-          elif [ "${{steps.sync.outputs.has_new_commits}}" == "true" ]; then
-            echo "There were new commits."
-          else
-            echo "Sync failed"
-            exit 1
-          fi
+
