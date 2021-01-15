@@ -29,5 +29,14 @@ jobs:
           # Git email credentials for sigining commit (set to "null" for no credential changes)
           git_email: "null"
       - name: Check for new commits
-        if: ${{ ! steps.sync.outputs.has_new_commits }}
-        run: echo "No new commits to sync."
+        if: always()
+        run: |
+          echo "${{steps.sync.outputs.has_new_commits}}"
+          if [ "${{steps.sync.outputs.has_new_commits}}" == "false" ]; then
+            echo "No new commits to sync."
+          elif [ "${{steps.sync.outputs.has_new_commits}}" == "true" ]; then
+            echo "There were new commits."
+          else
+            echo "Sync failed"
+            exit 1
+          fi
