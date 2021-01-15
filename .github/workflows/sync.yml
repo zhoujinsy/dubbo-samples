@@ -28,3 +28,6 @@ jobs:
           git_user: "null"
           # Git email credentials for sigining commit (set to "null" for no credential changes)
           git_email: "null"
+      - name: Check for new commits
+        if: ${{ ! steps.sync.outputs.has_new_commits }}
+        run: echo "No new commits to sync."
